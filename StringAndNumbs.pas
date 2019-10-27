@@ -9,12 +9,17 @@ begin
   is_digit := (c <= '9') and (c >= '0');
 end;
 
-function conversion(c: char): integer;
+function char_to_digit(c: char): integer;
 begin
-  conversion := (is_digit(c) ? integer(c) - integer('0') : -1);
+  if is_digit(c) then begin
+    char_to_digit := integer(c) - integer('0')
+  end
+  else begin
+      char_to_digit := -1;
+  end;
 end;
 
-function converting(a: array of char; n: integer): integer;
+function string_to_number(a: array of char; n: integer): integer;
 var
   i, x, exp: integer;
 begin
@@ -22,10 +27,10 @@ begin
   exp := 1;
   for i := n - 1 downto 0 do
   begin
-    x := x + conversion(a[i]) * exp;
+    x := x + char_to_digit(a[i]) * exp;
     exp := exp * 10;
   end;
-  converting := x;
+  string_to_number := x;
 end;
 
 begin
@@ -41,5 +46,5 @@ begin
       exit; 
     end;
   end;
-  writeln(converting(a, n));
+  writeln(string_to_number(a, n));
 end.
